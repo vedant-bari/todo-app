@@ -22,15 +22,20 @@ docker-compose run --rm web [command]
 If docker not present:
 
 create a virtualenv using python3:
-``bash
+
+```bash
 virtualenv -p python3 envname
 ```
+
 activate the virtualenv
-``bash
+
+```bash
 source envname/bin/activate
 ```
+
 install requirements from requirements.txt:
-``bash
+
+```bash
 pip install -r requirements.txt
 ```
 
