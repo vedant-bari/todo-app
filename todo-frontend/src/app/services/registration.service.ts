@@ -7,7 +7,7 @@ import { HttpClient , HttpHeaders} from '@angular/common/http';
 export class RegistrationService {
 
 
-  private REST_API_SERVER = "http://127.0.0.1:8200/rest-auth/registration/";
+  private REST_API_SERVER = "http://127.0.0.1:8000/rest-auth/registration/";
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',

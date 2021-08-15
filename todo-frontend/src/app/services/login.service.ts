@@ -6,7 +6,7 @@ import { HttpClient , HttpHeaders} from '@angular/common/http';
 })
 export class LoginService {
 
-  private REST_API_SERVER = "http://127.0.0.1:8200";
+  private REST_API_SERVER = "http://127.0.0.1:8000";
   private httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
@@ -36,14 +36,14 @@ export class LoginService {
 
   
   userProfileDetail(){
-    // http://localhost:8200/api/v1/user/users/ff5a671d-154c-499f-bec4-adc67e19ef97/
+    // http://localhost:8000/api/v1/user/users/ff5a671d-154c-499f-bec4-adc67e19ef97/
     var user = JSON.parse(localStorage.getItem('user'))
     return this.httpClient.get(this.REST_API_SERVER+"/api/v1/user/users/"+ user['id']+"/",this.httpOptions)
 
   }
 
   userProfileUpdate(data){
-    // http://localhost:8200/api/v1/user/users/ff5a671d-154c-499f-bec4-adc67e19ef97/
+    // http://localhost:8000/api/v1/user/users/ff5a671d-154c-499f-bec4-adc67e19ef97/
     var user = JSON.parse(localStorage.getItem('user'));
 
     const httpOptions = {
