@@ -66,19 +66,19 @@ class Common(Configuration):
     )
 
     # Postgres for docker
-    # DATABASES = {
-    #     'default': dj_database_url.config(
-    #         default=os.getenv('DATABASE_URL'),
-    #         conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
-    #     )
-    # }
-
     DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'tweeter.db'),
+        'default': dj_database_url.config(
+            default=os.getenv('DATABASE_URL'),
+            conn_max_age=int(os.getenv('POSTGRES_CONN_MAX_AGE', 600))
+        )
     }
-    }
+
+    # DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': os.path.join(BASE_DIR, 'tweeter.db'),
+    # }
+    # }
 
     # General
     APPEND_SLASH = False
@@ -231,8 +231,8 @@ class Common(Configuration):
 
     # Django Rest Framework
     REST_FRAMEWORK = {
-        'DEFAULT_PAGINATION_CLASS': None,
-        'PAGE_SIZE': int(os.getenv('DJANGO_PAGINATION_LIMIT', 10)),
+        # 'DEFAULT_PAGINATION_CLASS': None,
+        # 'PAGE_SIZE': int(os.getenv('DJANGO_PAGINATION_LIMIT', 10)),
         'DATETIME_FORMAT': '%Y-%m-%dT%H:%M:%S%z',
         'DEFAULT_RENDERER_CLASSES': (
             'rest_framework.renderers.JSONRenderer',
