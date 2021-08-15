@@ -1,0 +1,133 @@
+<h3>{{ profileData.first_name }} {{ profileData.last_name }}'s dashboard</h3>
+<div class="container">
+  <form clrForm [formGroup]="TodoTaskForm" novalidate>
+    
+    <clr-input-container>
+      <label for="task_name">Task Name</label>
+      <input clrInput id="task_name" placeholder="My task" name="input" formControlName="task_name" required/>
+      <clr-control-error>Task name is required</clr-control-error>
+    </clr-input-container>
+   
+    <clr-textarea-container>
+      <label>Desciption</label>
+      <textarea clrTextarea formControlName="description" name="description" required></textarea>
+      <clr-control-error>You must provide a description!</clr-control-error>
+    </clr-textarea-container>
+
+    <clr-date-container>
+      <label for="dateControl">Due Date</label>
+      <input id="dateControl" type="date" clrDate formControlName="due_date"  [min]="minDate" required/>
+      <clr-control-error>You must select a date</clr-control-error>
+    </clr-date-container>
+
+    <button class="btn btn-primary" type="submit" (click)="onSubmit()">Add Task</button>
+    
+  </form>
+
+</div>
+
+
+
+<div class="clr-row">
+    <div class="clr-col-4">
+      <div class="clr-row" *ngIf="todoList.length > 0 else notodoTask">
+        <div class="clr-col-12" *ngFor="let todo of todoList">
+          
+          <div class="card">
+            <div class="card-header">
+            {{ todo.task_name }}
+            start_date -- {{ todo.start_date | date : short }}
+            </div>
+            <div class="card-block">
+              <div class="card-title">
+              {{ todo.description }}
+              </div>
+            </div>
+            <div class="card-footer">
+      
+              
+              <button class="btn btn-sm btn-link" (click)="onEdit(todo)">edit</button>
+              <button class="btn btn-sm btn-link" (click)="ondelete(todo)">Delete</button>
+
+              <span class="badge badge-success" *ngIf="todo.is_completed">completed</span>
+              <span class="badge badge-info" *ngIf="!todo.is_completed">inprogress</span>
+
+              <span> Due date -- {{ todo.due_date }}</span>
+
+            </div>
+          </div>
+          
+        </div>
+      </div>
+      
+    </div>
+    
+    <div class="clr-col" *ngIf="updateMode">
+      <div>
+        <form clrForm [formGroup]="this.TodoTaskUpdateForm" style="border:1px solid black">
+          <clr-input-container>
+            <label>Task Name</label>
+            <input clrInput type="text" formControlName="task_name" />
+            <clr-control-helper>Task name</clr-control-helper>
+            <clr-control-error>Error message that appears after focus is lost and control is invalid</clr-control-error>
+          </clr-input-container>
+  
+          <clr-textarea-container>
+            <label>Desciption</label>
+            <textarea clrTextarea formControlName="description" name="description" required></textarea>
+           
+          </clr-textarea-container>
+  
+          <clr-date-container>
+            <label>Due Date</label>
+            <input type="date" clrDate formControlName="due_date" [min]="minDate"/>
+          </clr-date-container>
+          <clr-date-container>
+            <label>Start Date</label>
+            <input type="date" clrDate formControlName="start_date" />
+          </clr-date-container>
+          <clr-checkbox-wrapper>
+            <label>Completed</label>
+            <input type="checkbox" clrCheckbox formControlName="is_completed"/>
+          </clr-checkbox-wrapper>
+          <button class="btn btn-primary" type="submit" (click)="updateTask(this.TodoTaskUpdateForm.value)">Update Task</button>
+          <button class="btn btn-primary" type="submit" (click)="cancelEdit()">Cancel</button>
+        </form>
+
+      </div>
+      
+    </div>
+</div>
+
+
+<div *ngIf="deleteMode">
+  <div class="modal">
+    <div class="modal-dialog" role="dialog" aria-hidden="true">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button aria-label="Close" class="close" type="button" (click)="cancelDelete()">
+                    <clr-icon aria-hidden="true" shape="close"></clr-icon>
+                </button>
+                <h3 class="modal-title">Task deletion confirmation</h3>
+            </div>
+            <div class="modal-body">
+                <p>The selected task will be deleted</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" type="button" (click)="cancelDelete()">Cancel</button>
+                <button class="btn btn-primary" type="button" (click)="deleteTask()" >Ok</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-backdrop" aria-hidden="true"></div>
+
+</div>
+
+
+
+
+
+<ng-template #notodoTask>
+  <div>No task added yet.</div>
+</ng-template>

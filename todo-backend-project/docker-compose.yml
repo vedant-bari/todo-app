@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  postgres:
+    image: "postgres:10"
+    container_name: postgres
+    env_file: ./piedpiper/config/.env
+    ports:
+       - "5434:5432"
+
+    volumes:
+      - ./postgres_db:/var/lib/postgresql/data
+
+  web:
+    restart: always
+    env_file: ./piedpiper/config/.env
+    image: piedpiper
+    container_name: piedpiper
+    build: ./
+    command: >
+      bash -c "python wait_for_postgres.py && ./manage.py runserver 0.0.0.0:8000"
+    volumes:
+      - ./:/code
+    ports:
+      - "8200:8000"
+    depends_on:
+      - postgres
+  
+
