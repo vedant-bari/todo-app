@@ -19,9 +19,9 @@ docker-compose run --rm web [command]
 ```
 
 
-If docker not present
-create a virtualenv using python3
-install requirements from requirements.txt
-comment the docker database url and uncomment the sqlitelite database url.
+If docker not present:
+create a virtualenv using python3:
+install requirements from requirements.txt:
+comment the docker database url and uncomment the sqlitelite database url:
 
 
