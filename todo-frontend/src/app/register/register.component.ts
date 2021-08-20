@@ -59,7 +59,9 @@ export class RegisterComponent implements OnInit {
     this.service.userRegistration(this.registerForm.value).subscribe(response => {
       console.log("success",response);
       this.loader = false;
-      this.router.navigate(['/login'])
+      localStorage.setItem('token', response["token"]);
+      localStorage.setItem('user', JSON.stringify(response["user"]));
+      this.router.navigate(['/todo'])
       // localStorage.setItem('token', response["token"]);
       // // localStorage.setItem('user', response["user"]);
       // console.log("token",localStorage.getItem('token'));
